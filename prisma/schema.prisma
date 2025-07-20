@@ -2,19 +2,56 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Producto {
+  id          Int    @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  cantidad    Int
+  precio      Decimal
 
-    @@index([name])
+  ventas VentaProducto[]
+}
+
+model Cliente {
+  id         Int      @id @default(autoincrement())
+  nombre     String
+  apellidoP  String
+  apellidoM  String
+  ci         String   @unique
+  correo     String
+  numero     String
+  nit        String
+  nacimiento DateTime
+  pais       String
+
+  ventas Venta[]
+}
+
+model Venta {
+  id         Int              @id @default(autoincrement())
+  fecha      DateTime         @default(now())
+  clienteId  Int
+  cliente    Cliente          @relation(fields: [clienteId], references: [id])
+  total      Decimal
+  items      VentaProducto[]  
+}
+
+
+model VentaProducto {
+  id          Int         @id @default(autoincrement())
+  ventaId     Int
+  productoId  Int
+  cantidad    Int
+  subtotal    Decimal      // 👈 Nuevo campo para registrar precio x cantidad
+
+  venta       Venta        @relation(fields: [ventaId], references: [id])
+  producto    Producto     @relation(fields: [productoId], references: [id])
 }

@@ -1,29 +1,61 @@
-# Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+# 🧾 Sistema de Ventas con Control de Inventario
 
-## What's next? How do I make an app with this?
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## ⚙️ Tecnologías implementadas
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- T3 Stack 
+- Next.js 
+- React Hooks 
+- Tailwind CSS
+- TypeScript
+- AntDesign 
+- MySQL 
+- Prisma ORM
+- TRPC Router
+- Docker 
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## 📦 Estructura del proyecto
 
-## Learn More
+src/  
+├── app/  
+│   ├── venta/ → Página principal de ventas (formulario + historial)  
+│   ├── clientes/ → CRUD de clientes  
+│   └── inventario/ → CRUD de productos  
+├── components/  
+│   └── VentaForm.tsx → Componente del formulario de ventas  
+├── server/  
+│   ├── api/  
+│   │   ├── routers/ → Routers TRPC (venta.ts, cliente.ts, producto.ts)  
+│   └── db/  
+│       └── prisma.ts → Conexión a Prisma  
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 🚀 Instrucciones para ejecutar el proyecto
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+1. Clonar el repositorio  
+   git clone <URL_DEL_REPOSITORIO>  
+   cd crud-producto
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+2. Instalar dependencias  
+   npm install  
 
-## How do I deploy this?
+3. Configurar el archivo `.env`  
+   Crea un archivo `.env` en la raíz del proyecto con:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+   DATABASE_URL="mysql://[USUARIO]:[CONTRASENA]@localhost:3306/crud-producto"
+
+   
+4. Ejecutar el script - `./start-database.sh`
+
+5. Aplicar el esquema de Prisma  
+   npm run db:push  
+   npm run db:studio
+
+6. Iniciar el servidor de desarrollo  
+   npm run dev  
+   Luego acceder a http://localhost:3000
+
+
+## 🚧 Limitaciones actuales
+
+- La tabla de historial no está mostrando las ventas en la interfaz web, aunque los datos sí se registran correctamente en la base
